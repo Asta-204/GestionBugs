@@ -1,0 +1,110 @@
+﻿@model GestionBugs.Models.BugDeclarationViewModel
+@{ ViewBag.Title = "Déclarer un bug"; }
+<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+<main class="formulaire-bug">
+    <h1>Déclarer un bug</h1>
+
+    @if (ViewBag.MessageSucces != null)
+    {
+        <div class="message-succes" role="status">@ViewBag.MessageSucces</div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="resume-erreurs" role="alert">
+            <strong>Le formulaire contient des erreurs.</strong>
+            @if (ViewBag.CaptureAReselectionner == true)
+            {
+                <span> La capture doit être sélectionnée à nouveau après l’envoi.</span>
+            }
+        </div>
+    }
+
+    @using (Html.BeginForm("Creer", "Bugs", FormMethod.Post, new { enctype = "multipart/form-data", novalidate = "novalidate" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(false, "Vérifiez les champs suivants :", new { @class = "resume-erreurs" })
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Titre)
+            @Html.TextBoxFor(m => m.Titre, new { @class = "champ", maxlength = "150" })
+            @Html.ValidationMessageFor(m => m.Titre, null, new { @class = "erreur" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Application)
+            @Html.TextBoxFor(m => m.Application, new { @class = "champ" })
+            @Html.ValidationMessageFor(m => m.Application, null, new { @class = "erreur" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { @class = "champ", rows = "4" })
+            @Html.ValidationMessageFor(m => m.Description, null, new { @class = "erreur" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Etapes)
+            @Html.TextAreaFor(m => m.Etapes, new { @class = "champ", rows = "3" })
+        </div>
+
+        <div class="grille-champs">
+            <div class="champ-groupe">
+                @Html.LabelFor(m => m.ResultatAttendu)
+                @Html.TextAreaFor(m => m.ResultatAttendu, new { @class = "champ", rows = "3" })
+            </div>
+            <div class="champ-groupe">
+                @Html.LabelFor(m => m.ResultatObtenu)
+                @Html.TextAreaFor(m => m.ResultatObtenu, new { @class = "champ", rows = "3" })
+            </div>
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.MessageErreur)
+            @Html.TextAreaFor(m => m.MessageErreur, new { @class = "champ", rows = "3" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Priorite)
+            @Html.DropDownListFor(m => m.Priorite, new[]
+            {
+                new SelectListItem { Text = "Faible", Value = "Faible" },
+                new SelectListItem { Text = "Normale", Value = "Normale" },
+                new SelectListItem { Text = "Haute", Value = "Haute" },
+                new SelectListItem { Text = "Critique", Value = "Critique" }
+            }, "Choisir une priorité", new { @class = "champ" })
+            @Html.ValidationMessageFor(m => m.Priorite, null, new { @class = "erreur" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.CaptureEcran)
+            <input id="CaptureEcran" name="CaptureEcran" type="file" class="champ" accept=".png,.jpg,.jpeg,image/png,image/jpeg" />
+            <p class="aide">PNG ou JPEG, 5 Mo maximum. La capture ne sera pas enregistrée à cette étape.</p>
+            @Html.ValidationMessageFor(m => m.CaptureEcran, null, new { @class = "erreur" })
+            <img id="apercuCapture" class="apercu" alt="Aperçu de la capture sélectionnée" hidden="hidden" />
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="bouton bouton-principal">Déclarer le bug</button>
+            @Html.ActionLink("Annuler", "Index", "Home", null, new { @class = "bouton bouton-secondaire" })
+        </div>
+    }
+</main>
+<script>
+    (function () {
+        var saisie = document.getElementById('CaptureEcran');
+        var apercu = document.getElementById('apercuCapture');
+        var urlPrecedente = null;
+        saisie.addEventListener('change', function () {
+            if (urlPrecedente) { URL.revokeObjectURL(urlPrecedente); urlPrecedente = null; }
+            apercu.hidden = true;
+            apercu.removeAttribute('src');
+            var fichier = saisie.files && saisie.files[0];
+            if (!fichier || (fichier.type !== 'image/png' && fichier.type !== 'image/jpeg')) { return; }
+            urlPrecedente = URL.createObjectURL(fichier);
+            apercu.src = urlPrecedente;
+            apercu.hidden = false;
+        });
+    }());
+</script>
+

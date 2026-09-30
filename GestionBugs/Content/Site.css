@@ -1,0 +1,19 @@
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px; font-family: "Segoe UI", Arial, sans-serif; color: #263445; background: #f4f7fb; line-height: 1.5; }
+.accueil, .formulaire-bug { max-width: 760px; margin: 5vh auto; padding: 32px; background: #fff; border-radius: 12px; box-shadow: 0 8px 28px rgba(24, 48, 80, .08); }
+h1 { margin-top: 0; color: #174a7e; }
+.grille-champs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.champ-groupe { margin-bottom: 16px; }
+.champ-groupe label { display: block; margin-bottom: 5px; font-weight: 600; }
+.champ { display: block; width: 100%; padding: 9px 10px; border: 1px solid #b8c4d1; border-radius: 5px; font: inherit; background: #fff; }
+textarea.champ { min-height: 96px; resize: vertical; }
+.aide { margin: 5px 0 0; color: #596b7d; font-size: .9rem; }
+.erreur { display: block; margin-top: 4px; color: #a12622; }
+.resume-erreurs { margin-bottom: 16px; padding: 10px 14px; color: #842029; background: #f8d7da; border-radius: 5px; }
+.message-succes { margin-bottom: 16px; padding: 12px 14px; color: #155724; background: #d4edda; border-radius: 5px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.bouton { display: inline-block; padding: 10px 16px; border: 0; border-radius: 5px; font: inherit; text-decoration: none; cursor: pointer; }
+.bouton-principal { color: #fff; background: #1769aa; }
+.bouton-secondaire { color: #263445; background: #e5ebf1; }
+.apercu { display: block; max-width: 100%; max-height: 260px; margin-top: 10px; border-radius: 5px; }
+@media (max-width: 600px) { body { padding: 12px; } .accueil, .formulaire-bug { margin: 2vh auto; padding: 22px; } .grille-champs { grid-template-columns: 1fr; gap: 0; } }

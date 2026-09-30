@@ -1,0 +1,8 @@
+﻿@{ ViewBag.Title = "Accueil"; }
+<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+<main class="accueil">
+    <h1>Gestion des bugs</h1>
+    <p>Déclarez et suivez les anomalies de vos applications</p>
+    <p>@Html.ActionLink("Déclarer un bug", "Creer", "Bugs", null, new { @class = "bouton bouton-principal" })</p>
+</main>
+
