@@ -1,0 +1,10 @@
+﻿@model string
+@{ ViewBag.Title = "Erreur"; }
+<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+<main class="formulaire-bug">
+    <h1>Une erreur est survenue</h1>
+    <p class="resume-erreurs" role="alert">@Model</p>
+    @Html.ActionLink("Retour à l’accueil", "Index", "Home", null, new { @class = "bouton bouton-secondaire" })
+</main>
+
+

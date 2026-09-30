@@ -3,6 +3,20 @@ using System.Web;
 
 namespace GestionBugs.Models
 {
+    public static class BugCategories
+    {
+        public static readonly string[] Valeurs =
+        {
+            "Interface utilisateur",
+            "Fonctionnalité",
+            "Performance",
+            "Sécurité",
+            "Données",
+            "Compatibilité",
+            "Autre"
+        };
+    }
+
     public class BugDeclarationViewModel
     {
         [Required(ErrorMessage = "Le titre est obligatoire.")]
@@ -13,6 +27,11 @@ namespace GestionBugs.Models
         [Required(ErrorMessage = "L’application ou le module concerné est obligatoire.")]
         [Display(Name = "Application ou module concerné")]
         public string Application { get; set; }
+
+        [Required(ErrorMessage = "Veuillez choisir une catégorie.")]
+        [StringLength(30, ErrorMessage = "La catégorie sélectionnée est invalide.")]
+        [Display(Name = "Catégorie")]
+        public string Categorie { get; set; }
 
         [Required(ErrorMessage = "La description détaillée est obligatoire.")]
         [Display(Name = "Description détaillée")]

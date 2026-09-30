@@ -1,0 +1,36 @@
+﻿@model GestionBugs.Models.BugDetailViewModel
+@{ ViewBag.Title = "Détail du bug"; }
+<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+<main class="formulaire-bug">
+    <h1>Bug #@Model.IdBug — @Model.Titre</h1>
+
+    @if (ViewBag.Confirmation != null)
+    {
+        <div class="message-succes" role="status">@ViewBag.Confirmation</div>
+    }
+
+    <dl class="details-bug">
+        <dt>Application ou module concerné</dt><dd>@Model.Application</dd>
+        <dt>Catégorie</dt><dd>@Model.Categorie</dd>
+        <dt>Description détaillée</dt><dd>@Model.Description</dd>
+        @if (!string.IsNullOrWhiteSpace(Model.Etapes)) { <dt>Étapes pour reproduire le bug</dt><dd>@Model.Etapes</dd> }
+        @if (!string.IsNullOrWhiteSpace(Model.ResultatAttendu)) { <dt>Résultat attendu</dt><dd>@Model.ResultatAttendu</dd> }
+        @if (!string.IsNullOrWhiteSpace(Model.ResultatObtenu)) { <dt>Résultat obtenu</dt><dd>@Model.ResultatObtenu</dd> }
+        @if (!string.IsNullOrWhiteSpace(Model.MessageErreur)) { <dt>Message d’erreur</dt><dd>@Model.MessageErreur</dd> }
+        <dt>Priorité</dt><dd>@Model.Priorite</dd>
+        <dt>Date de création (UTC)</dt><dd>@Model.DateCreationUtc.ToString("dd/MM/yyyy HH:mm 'UTC'")</dd>
+    </dl>
+
+    @if (Model.CaptureDisponible)
+    {
+        <h2>Capture d’écran</h2>
+        <img class="apercu" src="@Url.Action("Capture", "Bugs", new { id = Model.IdBug })" alt="Capture d’écran du bug" />
+    }
+
+    <div class="actions">
+        @Html.ActionLink("Déclarer un autre bug", "Creer", "Bugs", null, new { @class = "bouton bouton-principal" })
+        @Html.ActionLink("Accueil", "Index", "Home", null, new { @class = "bouton bouton-secondaire" })
+    </div>
+</main>
+
+

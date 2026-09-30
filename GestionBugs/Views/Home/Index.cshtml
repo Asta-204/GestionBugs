@@ -3,6 +3,15 @@
 <main class="accueil">
     <h1>Gestion des bugs</h1>
     <p>Déclarez et suivez les anomalies de vos applications</p>
+    <form action="@Url.Action("Index", "Bugs")" method="post" class="recherche-bugs">
+        @Html.AntiForgeryToken()
+        <label for="Recherche">Rechercher un bug</label>
+        <div class="recherche-ligne">
+        <input id="Recherche" name="Recherche" type="search" class="champ" maxlength="4000" placeholder="Titre, application, catégorie ou description" />
+            <button type="submit" class="bouton bouton-principal">Rechercher</button>
+        </div>
+    </form>
     <p>@Html.ActionLink("Déclarer un bug", "Creer", "Bugs", null, new { @class = "bouton bouton-principal" })</p>
 </main>
+
 

@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Models\BugDeclarationViewModel.cs" />
+    <Compile Include="Models\BugDetailViewModel.cs" />
+    <Compile Include="Models\BugSearchViewModel.cs" />
+    <Compile Include="Data\BugRepository.cs" />
     <Compile Include="Controllers\BugsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -85,12 +88,17 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Bugs\Creer.cshtml" />
+    <Content Include="Views\Bugs\Details.cshtml" />
+    <Content Include="Views\Bugs\Erreur.cshtml" />
+    <Content Include="Views\Bugs\Index.cshtml" />
     <Content Include="Content\Site.css" />
     <Content Include="packages.config" />
+    <None Include="Scripts\SQL\AjouterCategorieBug.sql" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

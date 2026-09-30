@@ -1,4 +1,5 @@
 ﻿@model GestionBugs.Models.BugDeclarationViewModel
+@using System.Linq
 @{ ViewBag.Title = "Déclarer un bug"; }
 <link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
 <main class="formulaire-bug">
@@ -35,6 +36,14 @@
             @Html.LabelFor(m => m.Application)
             @Html.TextBoxFor(m => m.Application, new { @class = "champ" })
             @Html.ValidationMessageFor(m => m.Application, null, new { @class = "erreur" })
+        </div>
+
+        <div class="champ-groupe">
+            @Html.LabelFor(m => m.Categorie)
+            @Html.DropDownListFor(m => m.Categorie,
+                GestionBugs.Models.BugCategories.Valeurs.Select(c => new SelectListItem { Text = c, Value = c }),
+                "Choisir une catégorie", new { @class = "champ" })
+            @Html.ValidationMessageFor(m => m.Categorie, null, new { @class = "erreur" })
         </div>
 
         <div class="champ-groupe">
@@ -107,4 +116,5 @@
         });
     }());
 </script>
+
 

@@ -16,4 +16,17 @@ textarea.champ { min-height: 96px; resize: vertical; }
 .bouton-principal { color: #fff; background: #1769aa; }
 .bouton-secondaire { color: #263445; background: #e5ebf1; }
 .apercu { display: block; max-width: 100%; max-height: 260px; margin-top: 10px; border-radius: 5px; }
+.details-bug { display: grid; grid-template-columns: minmax(180px, 1fr) 2fr; gap: 8px 18px; }
+.details-bug dt { font-weight: 600; }
+.details-bug dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.recherche-bugs { margin: 26px 0; }
+.recherche-bugs label { display: block; margin-bottom: 6px; font-weight: 600; }
+.recherche-ligne { display: flex; gap: 8px; }
+.liste-bugs { margin: 18px 0; padding: 0; list-style: none; }
+.bug-resultat { padding: 16px 0; border-top: 1px solid #dbe2e9; }
+.bug-resultat h2 { margin: 0 0 4px; font-size: 1.15rem; }
+.bug-meta { color: #596b7d; font-size: .9rem; }
+.bug-description { margin: 8px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 600px) { body { padding: 12px; } .accueil, .formulaire-bug { margin: 2vh auto; padding: 22px; } .grille-champs { grid-template-columns: 1fr; gap: 0; } }
+@media (max-width: 500px) { .details-bug { grid-template-columns: 1fr; gap: 2px; } .details-bug dd { margin-bottom: 10px; } }
+@media (max-width: 500px) { .recherche-ligne { align-items: stretch; flex-direction: column; } }

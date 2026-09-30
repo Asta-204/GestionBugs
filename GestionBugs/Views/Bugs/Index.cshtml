@@ -1,0 +1,55 @@
+﻿@model GestionBugs.Models.BugSearchViewModel
+@{ ViewBag.Title = "Rechercher un bug"; }
+<link rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+<main class="formulaire-bug">
+    <h1>Rechercher des bugs</h1>
+
+    @using (Html.BeginForm("Index", "Bugs", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="recherche-bugs">
+            @Html.LabelFor(m => m.Recherche)
+            <div class="recherche-ligne">
+                @Html.TextBoxFor(m => m.Recherche, new { @class = "champ", type = "search", maxlength = "4000", placeholder = "Titre, application, catégorie ou description" })
+                <button type="submit" class="bouton bouton-principal">Rechercher</button>
+            </div>
+            @Html.ValidationMessageFor(m => m.Recherche, null, new { @class = "erreur" })
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        @Html.ValidationSummary(false, "La recherche contient une erreur :", new { @class = "resume-erreurs" })
+    }
+    else if (Model.Resultats == null || Model.Resultats.Count == 0)
+    {
+        <p>Aucun bug correspondant n’a été trouvé.</p>
+    }
+    else
+    {
+        <p>@Model.Resultats.Count résultat(s).</p>
+        <ul class="liste-bugs">
+            @foreach (var bug in Model.Resultats)
+            {
+                var description = bug.Description ?? string.Empty;
+                var extrait = description.Length > 240 ? description.Substring(0, 240) + "…" : description;
+                <li class="bug-resultat">
+                    <h2>@Html.ActionLink(bug.Titre, "Details", "Bugs", new { id = bug.IdBug }, null)</h2>
+                    <div class="bug-meta">@bug.Application · Catégorie : @bug.Categorie · Priorité : @bug.Priorite · @bug.DateCreationUtc.ToString("dd/MM/yyyy HH:mm 'UTC'") UTC</div>
+                    @if (!string.IsNullOrWhiteSpace(extrait))
+                    {
+                        <p class="bug-description">@extrait</p>
+                    }
+                    @Html.ActionLink("Afficher le détail", "Details", "Bugs", new { id = bug.IdBug }, null)
+                </li>
+            }
+        </ul>
+    }
+
+    <div class="actions">
+        @Html.ActionLink("Déclarer un bug", "Creer", "Bugs", null, new { @class = "bouton bouton-principal" })
+        @Html.ActionLink("Accueil", "Index", "Home", null, new { @class = "bouton bouton-secondaire" })
+    </div>
+</main>
+
+
